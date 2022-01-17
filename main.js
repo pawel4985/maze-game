@@ -82,7 +82,11 @@ function move(){
 }
 
 
+
 window.addEventListener('keydown',(event)=>{
+    if((event.key=="w"||event.key=="a"||event.key=="s"||event.key=="d") && (typeof hold1=="undefined" || hold1=="checked")){
+        hold1=setInterval(move,50)
+    }
     if(event.key==="w"){
         act="w"
     }
@@ -95,9 +99,15 @@ window.addEventListener('keydown',(event)=>{
     if(event.key==="d"){
         act="d"
     }
-    move()
     if(typeof seconds=="undefined"){
         timer()
+    }
+})
+
+window.addEventListener('keyup',(event)=>{
+    if((event.key=="w"||event.key=="a"||event.key=="s"||event.key=="d") && (typeof hold1!="undefined" || hold1!="checked")){
+        clearInterval(hold1)
+        hold1="checked"
     }
 })
 
@@ -134,4 +144,60 @@ function timer(){
     }
     time.innerHTML=minutes+":"+seconds+":"+miliseconds
 }
+
+//mobile port
+w_button=document.getElementById('w_button')
+a_button=document.getElementById('a_button')
+s_button=document.getElementById('s_button')
+d_button=document.getElementById('d_button')
+
+
+w_button.addEventListener('pointerdown',function(){
+    act='w'
+    hold=setInterval(move,50)
+    if(typeof seconds=="undefined"){
+    timer()
+    }
+})
+w_button.addEventListener('pointerup',function(){
+    act='w'
+    clearInterval(hold)
+})
+
+s_button.addEventListener('pointerdown',function(){
+    act='s'
+    hold=setInterval(move,50)
+    if(typeof seconds=="undefined"){
+    timer()
+    }
+})
+s_button.addEventListener('pointerup',function(){
+    act='s'
+    clearInterval(hold)
+})
+
+a_button.addEventListener('pointerdown',function(){
+    act='a'
+    hold=setInterval(move,50)
+    if(typeof seconds=="undefined"){
+    timer()
+    }
+})
+a_button.addEventListener('pointerup',function(){
+    act='a'
+    clearInterval(hold)
+})
+
+d_button.addEventListener('pointerdown',function(){
+    act='d'
+    hold=setInterval(move,50)
+    if(typeof seconds=="undefined"){
+    timer()
+    }
+})
+d_button.addEventListener('pointerup',function(){
+    act='d'
+    clearInterval(hold)
+})
+
 

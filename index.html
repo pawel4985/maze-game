@@ -10,12 +10,19 @@
 </head>
 
 <body onload="maze()">
-    <button>PLAY</button>
     <div id="game">
-        <p id="time" class="subtitle">0</p>
+        <p id="time" class="subtitle"></p>
         <p id="level" class="subtitle">Level: 1</p>
         <img id="lvl">
         <div id="player"></div>
+    </div>
+    <div class="mobile">
+        <div class="top"><button id="w_button">W</button></div>
+        <div class="bottom">
+            <button id="a_button">A</button>
+            <button id="s_button">S</button>
+            <button id="d_button">D</button>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>
