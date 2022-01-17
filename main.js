@@ -5,6 +5,7 @@ const lvl01=new Image
 lvl01.src="levels/1.jpg"
 
 }
+window.ondragstart = function() { return false; } 
 
 const game=document.getElementById("game")
 const lvl=document.getElementById('lvl')
@@ -86,6 +87,9 @@ function move(){
 window.addEventListener('keydown',(event)=>{
     if((event.key=="w"||event.key=="a"||event.key=="s"||event.key=="d") && (typeof hold1=="undefined" || hold1=="checked")){
         hold1=setInterval(move,50)
+        if(typeof seconds=="undefined"){
+            timer()
+        }
     }
     if(event.key==="w"){
         act="w"
@@ -98,9 +102,6 @@ window.addEventListener('keydown',(event)=>{
     }
     if(event.key==="d"){
         act="d"
-    }
-    if(typeof seconds=="undefined"){
-        timer()
     }
 })
 
