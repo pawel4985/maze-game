@@ -53,66 +53,74 @@ function level01(){
             player.style.top=p_y+"px"
             player.style.left=p_x+"px"
         }
-        if(p_y==0){
-            clearInterval(collisions)
+        if(p_y<0){
             clearInterval(time_counter)
+            clearInterval(collisions)
             actual_lvl++
         }
     },10)
 }
 
+rightPressed = false;
+leftPressed = false;
+upPressed = false;
+downPressed = false;
 function move(){
-    if(act!="none"){
-    switch(act){
-        case "s":
-            p_y+=20
-            player.style.top=p_y+"px"
-            break;
-        case "w":
-            p_y-=20
-            player.style.top=p_y+"px"
-            break;
-        case "a":
-            p_x-=20
-            player.style.left=p_x+"px"
-            break;
-        case "d":
-            p_x+=20
-            player.style.left=p_x+"px"
-            break;
+    if(rightPressed==true){
+        p_x+=1
+        player.style.left=p_x+"px"
+    }
+    if(leftPressed==true){
+        p_x-=1
+        player.style.left=p_x+"px"
+    }
+    if(upPressed==true){
+        p_y-=1
+        player.style.top=p_y+"px"
+    }
+    if(downPressed==true){
+        p_y+=1
+        player.style.top=p_y+"px"
     }
 }
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+setInterval(move,1)
+
+function keyDownHandler(e) {
+    if(((e.key == "Right" || e.key == "ArrowRight" || e.key == "d")||(e.key == "Left" || e.key == "ArrowLeft" || e.key == "a")||(e.key == "Up" || e.key == "ArrowUp" || e.key == "w")||(e.key == "Down" || e.key == "ArrowDown"  || e.key == "s"))&&typeof seconds=="undefined"){
+        timer()
+    }
+    if(e.key == "Right" || e.key == "ArrowRight" || e.key == "d") {
+        rightPressed = true;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft" || e.key == "a") {
+        leftPressed = true;
+    }
+    else if(e.key == "Up" || e.key == "ArrowUp" || e.key == "w") {
+        upPressed = true;
+    }
+    else if(e.key == "Down" || e.key == "ArrowDown" || e.key == "s") {
+        downPressed = true;
+    }
 }
 
-
-
-window.addEventListener('keydown',(event)=>{
-    if((event.key=="w"||event.key=="a"||event.key=="s"||event.key=="d") && (typeof hold1=="undefined" || hold1=="checked")){
-        hold1=setInterval(move,50)
-        if(typeof seconds=="undefined"){
-            timer()
-        }
+function keyUpHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight" || e.key == "d") {
+        rightPressed = false;
     }
-    if(event.key==="w"){
-        act="w"
+    else if(e.key == "Left" || e.key == "ArrowLeft" || e.key == "a") {
+        leftPressed = false;
     }
-    if(event.key==="s"){
-        act="s"
+    else if(e.key == "Up" || e.key == "ArrowUp" || e.key == "w") {
+        upPressed = false;
     }
-    if(event.key==="a"){
-        act="a"
+    else if(e.key == "Down" || e.key == "ArrowDown" || e.key == "s") {
+        downPressed = false;
     }
-    if(event.key==="d"){
-        act="d"
-    }
-})
-
-window.addEventListener('keyup',(event)=>{
-    if((event.key=="w"||event.key=="a"||event.key=="s"||event.key=="d") && (typeof hold1!="undefined" || hold1!="checked")){
-        clearInterval(hold1)
-        hold1="checked"
-    }
-})
+}
 
 function timer(){
     if(typeof seconds=="undefined"){
@@ -157,22 +165,29 @@ if(window.innerWidth<901){
     d_button=document.getElementById('d_button')
     function mobile_kd(widget){
         if((widget.value=="w"||widget.value=="a"||widget.value=="s"||widget.value=="d") && (typeof hold=="undefined" || hold=="checked")){
-            hold=setInterval(move,50)
             if(typeof seconds=="undefined"){
                 timer()
             }
         }
         if(widget.value=="w"){
-            act="w"
+            upPressed = true;
+        }else{
+            upPressed = false;
         }
         if(widget.value=="s"){
-            act="s"
+            downPressed = true;
+        }else{
+            downPressed = false;
         }
         if(widget.value=="a"){
-            act="a"
+            leftPressed = true;
+        }else{
+            leftPressed = false;
         }
         if(widget.value=="d"){
-            act="d"
+            rightPressed = true;
+        }else{
+            rightPressed = false;
         }
     }
 
